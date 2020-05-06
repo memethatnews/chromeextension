@@ -26,22 +26,17 @@
     "page": "options.html",
     "chrome_style": true
   },
-  "content_scripts": [
-    {
-      "matches": [
-        "http://*/*",
-        "https://*/*"
-      ],
-      "js": [
-        "scripts/contentscript.js"
-      ],
-      "run_at": "document_end",
-      "all_frames": false
-    }
-  ],
-  "omnibox": {
-    "keyword": "OMNIBOX-KEYWORD"
-  },
+  "content_scripts": [{
+    "matches": [
+      "http://*/*",
+      "https://*/*"
+    ],
+    "js": [
+      "scripts/contentscript.js"
+    ],
+    "run_at": "document_end",
+    "all_frames": false
+  }],
   "browser_action": {
     "default_icon": {
       "19": "images/icon-19.png",
@@ -49,5 +44,6 @@
     },
     "default_title": "mtn_extension",
     "default_popup": "popup.html"
-  }
+  },
+  "content_security_policy": "script-src 'self' https://cdn.embedly.com https://embed.redditmedia.com; object-src 'self'"
 }
