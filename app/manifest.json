@@ -11,8 +11,10 @@
   "background": {
     "scripts": [
       "libs/polyfill.min.js",
-      "scripts/chromereload.js",
       "scripts/background.js"
+    ],
+    "__scripts": [
+      "scripts/chromereload.js"
     ]
   },
   "permissions": [
