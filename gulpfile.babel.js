@@ -89,11 +89,11 @@ gulp.task('chromeManifest', () => {
     .src('app/manifest.json')
     .pipe(
       $.chromeManifest({
-        buildnumber: true,
-        background: {
-          target: 'scripts/background.js',
-          exclude: ['scripts/chromereload.js']
-        }
+        buildnumber: true
+        // background: {
+        //   target: 'scripts/background.js',
+        //   exclude: ['scripts/chromereload.js']
+        // }
       })
     )
     .pipe($.if('*.css', $.cleanCss({ compatibility: '*' })))
@@ -128,9 +128,20 @@ gulp.task('watch', () => {
   //   'app/_locales/**/*.json'
   // ]).on('change', $.livereload.reload);
 
-  gulp.watch('app/scripts.babel/**/*.js', { ignoreInitial: true }, ['lint', 'babel'])
-  gulp.watch('bower.json', { ignoreInitial: true }, ['wiredep'])
-  gulp.watch('app/manifest.json', { ignoreInitial: true }, ['lint', 'babel', 'chromeManifest'])
+  const watchOpts = { ignoreInitial: true }
+  // gulp.watch('app/scripts.babel/**/*.js', watchOpts, ['lint', 'babel'])
+  // gulp.watch('bower.json', watchOpts, ['wiredep'])
+  // gulp.watch('app/manifest.json', watchOpts, ['lint', 'babel', 'chromeManifest'])
+  // gulp.watch('app/*.html', watchOpts, ['html', 'build'])
+  // gulp.watch('app/images/**/*', watchOpts, ['images', 'build'])
+  // gulp.watch('app/styles/*.css', watchOpts, ['extras', 'build'])
+
+  gulp.watch(['app/scripts.babel/**/*.js',
+    'bower.json',
+    'app/manifest.json',
+    'app/*.html',
+    'app/images/**/*',
+    'app/styles/*.css'], watchOpts, ['build'])
 })
 
 gulp.task('size', () => {
@@ -156,9 +167,13 @@ gulp.task('package', function () {
     .pipe(gulp.dest('package'))
 })
 
+gulp.task('release', (cb) => {
+  runSequence('clean', 'build', 'package', cb)
+})
+
 gulp.task('build', (cb) => {
   runSequence(
-    'lint',
+    // 'lint', <-- doesn't work and stops all execution after it
     'babel',
     'chromeManifest',
     ['html', 'images', 'extras'],
