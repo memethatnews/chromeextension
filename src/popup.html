@@ -1,11 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html>
+
 <head>
-  <meta charset="UTF-8">
-  <title></title>
+  <meta charset="utf-8">
 </head>
+
 <body>
-  <h1>Hello!</h1>
-  <img src="img/icon-128.png">
+  <div id="wrapper">
+    <div id="header">
+      <a class="btn btn-red btn-mtn" href="https://www.reddit.com/r/MemeThatNews/" target="_blank">Meme That News</a>
+
+      <form method="GET" action="https://www.reddit.com/r/MemeThatNews/search" target="_blank">
+        <div id="search-wrapper">
+          <input autocomplete="off" type="text" name="q" id="search-box" placeholder="Search r/MemeThatNews" />
+          <input type="hidden" name="restrict_sr" value="1" />
+          <button type="submit" id="search-btn"></button>
+        </div>
+      </form>
+    </div>
+
+    <div id="search-slice" class="slice search">
+      <div class="doge"></div>
+      <h2>Searching...</h2>
+    </div>
+
+    <div id="no-matches" class="invisible">
+      <p>Oops, it looks like there isn’t a meme available about this story  at r/memethatnews.</p>
+      <p>Try searching a different story above or check out some other  news memes below.</p>
+    </div>
+
+    <div id="matches"></div>
+    </h2>
+    <script async src="https://embed.redditmedia.com/widgets/platform.js" charset="UTF-8"></script>
+
+    <script src="scripts/popup.js"></script>
 </body>
+
 </html>
