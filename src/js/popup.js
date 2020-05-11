@@ -94,7 +94,10 @@ window.onload = async () => {
   debug("tab", tab);
 
   const list = await fetchRedditData();
-  const matches = list.items.filter((item) => item.article_url === tab.url);
+  debug(`fetched reddit data`, list);
+  const matches = list.items.filter(
+    (item) => item && item.article_url === tab.url
+  );
 
   const searchElm = document.getElementById("search-slice");
   searchElm.classList.add("invisible");

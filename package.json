@@ -1,6 +1,6 @@
 {
   "name": "meme-that-news-chrome",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "See if a news article has already been memed on Reddit!",
   "scripts": {
     "build": "node utils/build.js",
