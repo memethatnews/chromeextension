@@ -53,7 +53,17 @@ body {
   background: transparent url("../img/search_icon.png") no-repeat 2px 2px;
 }
 
-#matches {
+#matches {}
+
+#latest-posts {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid #cfcfcf;
+}
+
+#latest-posts h2 {
+  margin: 15rem 0 10rem 5rem;
+  font-weight: bold;
 }
 
 #no-matches {
