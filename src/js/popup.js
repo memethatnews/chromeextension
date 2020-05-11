@@ -27,7 +27,7 @@ const fetchRedditData = async () => {
     });
   });
   debug("cache data", mtnData);
-  if (mtnData.items && mtnData.updated) {
+  if (mtnData && mtnData.items && mtnData.updated) {
     const updatedDate = new Date(mtnData.updated);
     // after 12h the data is considered stale
     const ttl = 12 * 3600 * 1000;
