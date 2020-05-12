@@ -32,6 +32,9 @@ const fetchRedditData = async () => {
     // after 12h the data is considered stale
     const ttl = 12 * 3600 * 1000;
     if (Math.abs(new Date() - updatedDate) < ttl) {
+      // simulate "Searching" screen - otherwise users might think
+      // the extension is stuck...
+      await waitMs(800);
       return { items: mtnData.items };
     } else {
       debug("cache data is stale, fetching fresh data");
@@ -86,6 +89,29 @@ const updateDomShowNoMatches = (items) => {
   showLatestPosts(items.slice(0, 5));
 };
 
+const matchData = (list, url, title) => {
+  const urlMatches = list.items.filter(
+    (item) => item && item.article_url && item.article_url === url
+  );
+  if (urlMatches.length > 0) {
+    return urlMatches;
+  }
+
+  const titleMatches = list.items.filter(
+    (item) =>
+      item &&
+      item.article_title &&
+      (`${title}`
+        .toLowerCase()
+        .indexOf(`${item.article_title}`.toLowerCase()) !== -1 ||
+        `${item.article_title}`
+          .toLowerCase()
+          .indexOf(`${title}`.toLowerCase()) !== -1)
+  );
+
+  return titleMatches;
+};
+
 window.onload = async () => {
   const tab = await getActiveTab();
   if (!tab) {
@@ -95,9 +121,8 @@ window.onload = async () => {
 
   const list = await fetchRedditData();
   debug(`fetched reddit data`, list);
-  const matches = list.items.filter(
-    (item) => item && item.article_url === tab.url
-  );
+
+  const matches = matchData(list, tab.url, tab.title);
 
   const searchElm = document.getElementById("search-slice");
   searchElm.classList.add("invisible");
